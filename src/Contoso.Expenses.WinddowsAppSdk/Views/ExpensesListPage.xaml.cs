@@ -1,4 +1,6 @@
-﻿using ContosoExpenses.ViewModels;
+﻿using ContosoExpenses.Messages;
+using ContosoExpenses.ViewModels;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -29,6 +31,24 @@ namespace Contoso.Expenses.WinddowsAppSdk.Views
         public ExpensesListPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            WeakReferenceMessenger.Default.Register<AddNewExpenseMessage>(this, async (_, _) =>
+            {
+                var dialog = new ContentDialog
+                {
+                    XamlRoot = XamlRoot,
+                    CloseButtonText = "Close",
+                };
+                await dialog.ShowAsync();
+            });
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            WeakReferenceMessenger.Default.Unregister<AddNewExpenseMessage>(this);
         }
     }
 }

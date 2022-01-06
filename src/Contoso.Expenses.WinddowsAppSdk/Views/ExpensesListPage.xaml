@@ -6,6 +6,8 @@
     xmlns:local="using:Contoso.Expenses.WinddowsAppSdk.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded"
     mc:Ignorable="d">
 
     <Grid Margin="12" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
