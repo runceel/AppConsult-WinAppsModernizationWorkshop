@@ -12,6 +12,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Views\AboutPage.xaml" />
+    <None Remove="Views\AddNewExpenseView.xaml" />
+    <None Remove="Views\ExpenseDetailView.xaml" />
     <None Remove="Views\ExpensesListPage.xaml" />
     <None Remove="Views\MainPage.xaml" />
   </ItemGroup>
@@ -27,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
     <Manifest Include="$(ApplicationManifest)" />
@@ -40,6 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContosoExpenses.ViewModels\ContosoExpenses.ViewModels.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ExpenseDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AddNewExpenseView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\ExpensesListPage.xaml">

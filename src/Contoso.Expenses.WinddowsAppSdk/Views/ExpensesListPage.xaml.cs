@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -37,18 +38,46 @@ namespace Contoso.Expenses.WinddowsAppSdk.Views
         {
             WeakReferenceMessenger.Default.Register<AddNewExpenseMessage>(this, async (_, _) =>
             {
+                var view = new AddNewExpenseView();
+                var dialog = new ContentDialog
+                {
+                    XamlRoot = XamlRoot,
+                    PrimaryButtonText = "Save",
+                    IsPrimaryButtonEnabled = view.ViewModel.SaveExpenseCommand.CanExecute(null),
+                    PrimaryButtonCommand = view.ViewModel.SaveExpenseCommand,
+                    CloseButtonText = "Cancel",
+                    Content = view,
+                };
+
+                void saveExpenseCommandCanExecuteChanged(object sender, EventArgs e)
+                {
+                    if (sender is ICommand command)
+                        dialog.IsPrimaryButtonEnabled = command.CanExecute(null);
+                }
+
+                view.ViewModel.SaveExpenseCommand.CanExecuteChanged += saveExpenseCommandCanExecuteChanged;
+                await dialog.ShowAsync();
+                view.ViewModel.SaveExpenseCommand.CanExecuteChanged -= saveExpenseCommandCanExecuteChanged;
+            });
+
+            WeakReferenceMessenger.Default.Register<SelectedExpenseMessage>(this, async (_, message) =>
+            {
+                var view = new ExpenseDetailView();
                 var dialog = new ContentDialog
                 {
                     XamlRoot = XamlRoot,
                     CloseButtonText = "Close",
+                    Content = view,
                 };
                 await dialog.ShowAsync();
             });
+
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             WeakReferenceMessenger.Default.Unregister<AddNewExpenseMessage>(this);
+            WeakReferenceMessenger.Default.Unregister<SelectedExpenseMessage>(this);
         }
     }
 }

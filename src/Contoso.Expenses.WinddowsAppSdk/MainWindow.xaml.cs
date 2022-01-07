@@ -50,16 +50,9 @@ namespace Contoso.Expenses.WinddowsAppSdk
             if (args.InvokedItemContainer.Tag is MenuItem invokedItem) Navigate(invokedItem.Title, invokedItem.PageType);
         }
 
-        private void Navigate(string title, Type pageType, bool clearHistory = true)
+        private void Navigate(string title, Type pageType)
         {
             navigationView.Header = title;
-            if (clearHistory)
-            {
-                while(frame.CanGoBack)
-                {
-                    frame.GoBack();
-                }
-            }
             frame.Navigate(pageType);
         }
 
@@ -73,7 +66,7 @@ namespace Contoso.Expenses.WinddowsAppSdk
             Navigate(MenuItems[0].Title, MenuItems[0].PageType);
             WeakReferenceMessenger.Default.Register<SelectedEmployeeMessage>(this, (_, message) =>
             {
-                Navigate("Expenses list", typeof(ExpensesListPage), false);
+                Navigate("Expenses list", typeof(ExpensesListPage));
             });
         }
     }

@@ -1,0 +1,171 @@
+﻿<UserControl
+    x:Class="Contoso.Expenses.WinddowsAppSdk.Views.ExpenseDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Contoso.Expenses.WinddowsAppSdk.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Contoso.Expenses.WinddowsAppSdk.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:CostToHeightConverter x:Key="CostToHeightConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Expense detail  -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                FontSize="24"
+                Text="Expense" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="Type:" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    FontSize="16"
+                    Text="{x:Bind ViewModel.ExpenseType}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="Description:" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    FontSize="16"
+                    Text="{x:Bind ViewModel.Description}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="Amount:" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    FontSize="16"
+                    Text="{x:Bind ViewModel.Amount}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="Location:" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    FontSize="16"
+                    Text="{x:Bind ViewModel.Location}" />
+            </StackPanel>
+        </Grid>
+
+        <!--  Chart  -->
+        <Grid
+            Grid.Column="1"
+            MinHeight="420"
+            Margin="20,0,0,0"
+            VerticalAlignment="Bottom"
+            ColumnDefinitions="Auto,Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <Grid
+                    x:Name="Chart"
+                    Grid.Column="0"
+                    Width="50"
+                    Height="{x:Bind ViewModel.Amount, Converter={StaticResource CostToHeightConverter}}"
+                    VerticalAlignment="Bottom">
+                    <Rectangle
+                        RadiusX="2"
+                        RadiusY="2"
+                        StrokeThickness="1">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0" Color="#4E87D4" />
+                                        <GradientStop Offset="1" Color="#73B2F5" />
+                                    </GradientStopCollection>
+                                </GradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0" Color="#FFFFFF" />
+                                        <GradientStop Offset="1" Color="#4E87D4" />
+                                    </GradientStopCollection>
+                                </GradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid
+                    Grid.Column="1"
+                    Width="20"
+                    Height="400"
+                    VerticalAlignment="Bottom">
+                    <Rectangle
+                        RadiusX="2"
+                        RadiusY="2"
+                        StrokeThickness="1">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0" Color="#FF0000" />
+                                        <GradientStop Offset="1" Color="#4CFF00" />
+                                    </GradientStopCollection>
+                                </GradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0" Color="#FF0000" />
+                                        <GradientStop Offset="1" Color="#4CFF00" />
+                                    </GradientStopCollection>
+                                </GradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+            </Grid>
+
+            <TextBlock
+                Grid.Column="1"
+                Margin="0,20,0,0"
+                Text="1000$ limit" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -40,6 +40,9 @@
                 x:Key="SemiTransparentBackground"
                 Opacity=".6"
                 Color="#0073CF" />
+
+            <!--  https://github.com/microsoft/microsoft-ui-xaml/issues/424  -->
+            <x:Double x:Key="ContentDialogMaxWidth">10000</x:Double>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
