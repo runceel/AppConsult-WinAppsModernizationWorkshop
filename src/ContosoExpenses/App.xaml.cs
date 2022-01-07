@@ -1,12 +1,11 @@
 ﻿using System.Windows;
 
-namespace ContosoExpenses
+namespace ContosoExpenses;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-        
-    }
+
 }

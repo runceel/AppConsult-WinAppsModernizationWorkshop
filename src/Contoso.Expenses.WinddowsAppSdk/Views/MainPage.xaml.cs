@@ -5,23 +5,22 @@ using Microsoft.UI.Xaml.Controls;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Contoso.Expenses.WinddowsAppSdk.Views
-{
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        private MainWindowViewModel _viewModel;
-        public MainWindowViewModel ViewModel => _viewModel ??= App.ViewModelLocator.MainWindowViewModel;
-        public MainPage()
-        {
-            this.InitializeComponent();
-        }
+namespace Contoso.Expenses.WinddowsAppSdk.Views;
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            ViewModel.SelectedEmployee = (Employee)e.ClickedItem;
-        }
+/// <summary>
+/// An empty page that can be used on its own or navigated to within a Frame.
+/// </summary>
+public sealed partial class MainPage : Page
+{
+    private MainWindowViewModel _viewModel;
+    public MainWindowViewModel ViewModel => _viewModel ??= App.ViewModelLocator.MainWindowViewModel;
+    public MainPage()
+    {
+        this.InitializeComponent();
+    }
+
+    private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+    {
+        ViewModel.SelectedEmployee = (Employee)e.ClickedItem;
     }
 }

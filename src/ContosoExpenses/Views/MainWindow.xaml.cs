@@ -16,27 +16,26 @@ using System.Windows;
 using ContosoExpenses.Messages;
 using Microsoft.Toolkit.Mvvm.Messaging;
 
-namespace ContosoExpenses.Views
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-            WeakReferenceMessenger.Default.Register<SelectedEmployeeMessage>(this, (_, message) =>
-            {
-                ExpensesList list = new();
-                list.Show();
-            });
-        }
+namespace ContosoExpenses.Views;
 
-        private void OnOpenAbout(object sender, RoutedEventArgs e)
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+        WeakReferenceMessenger.Default.Register<SelectedEmployeeMessage>(this, (_, message) =>
         {
-            AboutView about = new();
-            about.ShowDialog();
-        }
+            ExpensesList list = new();
+            list.Show();
+        });
+    }
+
+    private void OnOpenAbout(object sender, RoutedEventArgs e)
+    {
+        AboutView about = new();
+        about.ShowDialog();
     }
 }

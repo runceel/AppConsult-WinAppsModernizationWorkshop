@@ -14,16 +14,15 @@
 
 using System.Windows;
 
-namespace ContosoExpenses.Views
+namespace ContosoExpenses.Views;
+
+/// <summary>
+/// Interaction logic for ExpenseDetail.xaml
+/// </summary>
+public partial class ExpenseDetail : Window
 {
-    /// <summary>
-    /// Interaction logic for ExpenseDetail.xaml
-    /// </summary>
-    public partial class ExpenseDetail : Window
+    public ExpenseDetail()
     {
-        public ExpenseDetail()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

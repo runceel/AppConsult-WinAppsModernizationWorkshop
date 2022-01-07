@@ -16,27 +16,26 @@ using System.Windows;
 using ContosoExpenses.Messages;
 using Microsoft.Toolkit.Mvvm.Messaging;
 
-namespace ContosoExpenses.Views
-{
-    /// <summary>
-    /// Interaction logic for ExpensesList.xaml
-    /// </summary>
-    public partial class ExpensesList : Window
-    {
-        public ExpensesList()
-        {
-            InitializeComponent();
-            WeakReferenceMessenger.Default.Register<AddNewExpenseMessage>(this, (_, message) =>
-            {
-                AddNewExpense addNewExpense = new();
-                addNewExpense.Show();
-            });
+namespace ContosoExpenses.Views;
 
-            WeakReferenceMessenger.Default.Register<SelectedExpenseMessage>(this, (_, message) =>
-            {
-                ExpenseDetail detail = new();
-                detail.Show();
-            });
-        }
+/// <summary>
+/// Interaction logic for ExpensesList.xaml
+/// </summary>
+public partial class ExpensesList : Window
+{
+    public ExpensesList()
+    {
+        InitializeComponent();
+        WeakReferenceMessenger.Default.Register<AddNewExpenseMessage>(this, (_, message) =>
+        {
+            AddNewExpense addNewExpense = new();
+            addNewExpense.Show();
+        });
+
+        WeakReferenceMessenger.Default.Register<SelectedExpenseMessage>(this, (_, message) =>
+        {
+            ExpenseDetail detail = new();
+            detail.Show();
+        });
     }
 }

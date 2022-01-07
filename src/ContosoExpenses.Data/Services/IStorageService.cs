@@ -1,9 +1,8 @@
-﻿namespace ContosoExpenses.Data.Services
-{
-    public interface IStorageService
-    {
-        int SelectedEmployeeId { get; set; }
+﻿namespace ContosoExpenses.Data.Services;
 
-        int SelectedExpense { get; set; }
-    }
+public interface IStorageService
+{
+    int SelectedEmployeeId { get; set; }
+
+    int SelectedExpense { get; set; }
 }

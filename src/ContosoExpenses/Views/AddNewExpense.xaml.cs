@@ -16,20 +16,19 @@ using System.Windows;
 using ContosoExpenses.Messages;
 using Microsoft.Toolkit.Mvvm.Messaging;
 
-namespace ContosoExpenses.Views
+namespace ContosoExpenses.Views;
+
+/// <summary>
+/// Interaction logic for AddNewExpense.xaml
+/// </summary>
+public partial class AddNewExpense : Window
 {
-    /// <summary>
-    /// Interaction logic for AddNewExpense.xaml
-    /// </summary>
-    public partial class AddNewExpense : Window
+    public AddNewExpense()
     {
-        public AddNewExpense()
+        InitializeComponent();
+        WeakReferenceMessenger.Default.Register<CloseWindowMessage>(this, (_, message) =>
         {
-            InitializeComponent();
-            WeakReferenceMessenger.Default.Register<CloseWindowMessage>(this, (_, message) =>
-            {
-                this.Close();
-            });
-        }
+            this.Close();
+        });
     }
 }

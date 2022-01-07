@@ -1,7 +1,6 @@
 ﻿
-namespace ContosoExpenses.Messages
+namespace ContosoExpenses.Messages;
+
+public class SelectedEmployeeMessage
 {
-    public class SelectedEmployeeMessage
-    {
-    }
 }

@@ -1,8 +1,7 @@
-﻿namespace ContosoExpenses.Data.Services
+﻿namespace ContosoExpenses.Data.Services;
+
+public class StorageService : IStorageService
 {
-    public class StorageService : IStorageService
-    {
-        public int SelectedEmployeeId { get; set; }
-        public int SelectedExpense { get ; set; }
-    }
+    public int SelectedEmployeeId { get; set; }
+    public int SelectedExpense { get; set; }
 }

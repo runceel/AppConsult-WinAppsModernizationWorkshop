@@ -12,13 +12,12 @@
 
 // ******************************************************************
 
-namespace ContosoExpenses.Views
+namespace ContosoExpenses.Views;
+
+public partial class AboutView
 {
-    public partial class AboutView 
+    public AboutView()
     {
-        public AboutView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
