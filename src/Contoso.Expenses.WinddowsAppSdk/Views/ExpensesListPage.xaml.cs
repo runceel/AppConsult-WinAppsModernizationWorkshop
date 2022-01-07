@@ -16,8 +16,7 @@ namespace Contoso.Expenses.WinddowsAppSdk.Views;
 /// </summary>
 public sealed partial class ExpensesListPage : Page
 {
-    private ExpensesListViewModel _viewModel;
-    private ExpensesListViewModel ViewModel => _viewModel ??= App.ViewModelLocator.ExpensesListViewModel;
+    private ExpensesListViewModel ViewModel { get; } = App.ViewModelLocator.ExpensesListViewModel;
     public ExpensesListPage()
     {
         this.InitializeComponent();

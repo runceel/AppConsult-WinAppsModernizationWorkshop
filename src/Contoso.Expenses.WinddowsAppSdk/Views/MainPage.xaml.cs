@@ -12,15 +12,9 @@ namespace Contoso.Expenses.WinddowsAppSdk.Views;
 /// </summary>
 public sealed partial class MainPage : Page
 {
-    private MainWindowViewModel _viewModel;
-    public MainWindowViewModel ViewModel => _viewModel ??= App.ViewModelLocator.MainWindowViewModel;
+    public MainWindowViewModel ViewModel { get; } = App.ViewModelLocator.MainWindowViewModel;
     public MainPage()
     {
         this.InitializeComponent();
-    }
-
-    private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-    {
-        ViewModel.SelectedEmployee = (Employee)e.ClickedItem;
     }
 }
