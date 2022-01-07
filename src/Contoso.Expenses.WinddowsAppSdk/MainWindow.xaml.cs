@@ -28,7 +28,7 @@ namespace Contoso.Expenses.WinddowsAppSdk
     {
         private MenuItem[] MenuItems { get; } = new MenuItem[]
         {
-            new("Expense list", Symbol.AllApps, typeof(MainPage)),
+            new("Employee list", Symbol.AllApps, typeof(MainPage)),
             new("About", Symbol.Contact, typeof(AboutPage)),
         };
         public MainWindow()
