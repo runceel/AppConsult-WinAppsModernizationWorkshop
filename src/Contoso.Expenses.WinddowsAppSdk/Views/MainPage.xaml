@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="Contoso.Expenses.WinddowsAppSdk.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:ContosoExpenses.Data.Models"
+    xmlns:system="using:System"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <controls:DataGrid
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{x:Bind ViewModel.Employees, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.SelectedEmployee, Mode=TwoWay}"
+            SelectionMode="Single">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Binding="{Binding Path=EmployeeId}" Header="Employee Id" />
+                <controls:DataGridTextColumn Binding="{Binding Path=FirstName}" Header="Name" />
+                <controls:DataGridTextColumn Binding="{Binding Path=LastName}" Header="Surname" />
+                <controls:DataGridTextColumn Binding="{Binding Path=Email}" Header="E-mail" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</Page>
