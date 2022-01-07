@@ -17,8 +17,8 @@ https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/
 
 WPF version
 
-![assets/contoso_expenses_wpf.gif]
+!()[assets/contoso_expenses_wpf.gif]
 
 Windows App SDK version
 
-![assets/contoso_expenses_winappsdk.gif]
+!()[assets/contoso_expenses_winappsdk.gif]
