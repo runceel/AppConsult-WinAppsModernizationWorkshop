@@ -1,6 +1,4 @@
-﻿using ContosoExpenses.Data.Models;
-
-namespace ContosoExpenses.Data.Services
+﻿namespace ContosoExpenses.Data.Services
 {
     public interface IStorageService
     {

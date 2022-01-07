@@ -3,7 +3,6 @@ using ContosoExpenses.Data.Services;
 using ContosoExpenses.Messages;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
 using System.Collections.Generic;
 
 namespace ContosoExpenses.ViewModels

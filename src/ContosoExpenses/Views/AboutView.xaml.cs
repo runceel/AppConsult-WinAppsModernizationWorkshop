@@ -12,9 +12,6 @@
 
 // ******************************************************************
 
-using System.Linq;
-using System.Linq.Expressions;
-
 namespace ContosoExpenses.Views
 {
     public partial class AboutView 
