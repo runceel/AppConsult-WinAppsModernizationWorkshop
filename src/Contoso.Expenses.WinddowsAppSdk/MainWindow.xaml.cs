@@ -22,7 +22,7 @@ public sealed partial class MainWindow : Window
     };
     public MainWindow()
     {
-        this.InitializeComponent();
+        InitializeComponent();
         foreach (var item in MenuItems)
         {
             navigationView.MenuItems.Add(new NavigationViewItem

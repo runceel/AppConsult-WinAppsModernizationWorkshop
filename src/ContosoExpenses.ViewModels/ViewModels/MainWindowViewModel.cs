@@ -37,6 +37,6 @@ public class MainWindowViewModel : ObservableObject
     {
         databaseService.InitializeDatabase();
         Employees = databaseService.GetEmployees();
-        this._storageService = storageService;
+        _storageService = storageService;
     }
 }

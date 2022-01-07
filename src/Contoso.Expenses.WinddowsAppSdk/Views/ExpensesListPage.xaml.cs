@@ -19,7 +19,7 @@ public sealed partial class ExpensesListPage : Page
     private ExpensesListViewModel ViewModel { get; } = App.ViewModelLocator.ExpensesListViewModel;
     public ExpensesListPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -15,6 +15,6 @@ public sealed partial class MainPage : Page
     public MainWindowViewModel ViewModel { get; } = App.ViewModelLocator.MainWindowViewModel;
     public MainPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 }

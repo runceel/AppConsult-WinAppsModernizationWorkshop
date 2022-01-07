@@ -28,7 +28,7 @@ public partial class AddNewExpense : Window
         InitializeComponent();
         WeakReferenceMessenger.Default.Register<CloseWindowMessage>(this, (_, message) =>
         {
-            this.Close();
+            Close();
         });
     }
 }

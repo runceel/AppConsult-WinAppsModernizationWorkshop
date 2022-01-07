@@ -78,8 +78,8 @@ public class AddNewExpenseViewModel : ObservableObject
 
     public AddNewExpenseViewModel(IDatabaseService databaseService, IStorageService storageService)
     {
-        this._databaseService = databaseService;
-        this._storageService = storageService;
+        _databaseService = databaseService;
+        _storageService = storageService;
 
         Date = DateTime.Today;
     }

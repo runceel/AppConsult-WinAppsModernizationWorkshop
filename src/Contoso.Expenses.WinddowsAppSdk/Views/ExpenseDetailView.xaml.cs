@@ -11,6 +11,6 @@ public sealed partial class ExpenseDetailView : UserControl
     private ExpensesDetailViewModel ViewModel { get; } = App.ViewModelLocator.ExpensesDetailViewModel;
     public ExpenseDetailView()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 }

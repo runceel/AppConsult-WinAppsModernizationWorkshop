@@ -11,6 +11,6 @@ public sealed partial class AddNewExpenseView : UserControl
     public AddNewExpenseViewModel ViewModel { get; } = App.ViewModelLocator.AddNewExpenseViewModel;
     public AddNewExpenseView()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 }

@@ -78,12 +78,12 @@ public class ExpensesListViewModel : ObservableObject
 
         FullName = $"{SelectedEmployee.FirstName} {SelectedEmployee.LastName}";
 
-        this._databaseService = databaseService;
-        this._storageService = storageService;
+        _databaseService = databaseService;
+        _storageService = storageService;
 
         WeakReferenceMessenger.Default.Register<UpdateExpensesListMessage>(this, (_, message) =>
         {
-            Expenses = this._databaseService.GetExpenses(this._storageService.SelectedEmployeeId);
+            Expenses = _databaseService.GetExpenses(_storageService.SelectedEmployeeId);
         });
     }
 }
