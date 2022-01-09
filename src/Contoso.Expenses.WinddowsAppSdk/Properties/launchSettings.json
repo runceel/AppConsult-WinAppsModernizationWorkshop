@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Contoso.Expenses.WindowsAppSdk (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Contoso.Expenses.WindowsAppSdk (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
