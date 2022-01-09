@@ -3,7 +3,9 @@ using ContosoExpenses.Messages;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using System;
+using System.Linq;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -57,6 +59,21 @@ public sealed partial class MainWindow : Window
         {
             Navigate("Expenses list", typeof(ExpensesListPage));
         });
+    }
+
+    private void Frame_Navigated(object sender, NavigationEventArgs e)
+    {
+        if (e.NavigationMode == NavigationMode.Back)
+        {
+            navigationView.Header = MenuItems
+                .FirstOrDefault(x => x.PageType == e.SourcePageType)
+                ?.Title;
+        }
+    }
+
+    private void Grid_Unloaded(object sender, RoutedEventArgs e)
+    {
+        WeakReferenceMessenger.Default.Unregister<SelectedEmployeeMessage>(this);
     }
 }
 
