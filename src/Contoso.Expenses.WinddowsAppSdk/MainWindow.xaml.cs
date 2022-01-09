@@ -25,26 +25,16 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        foreach (var item in MenuItems)
-        {
-            navigationView.MenuItems.Add(new NavigationViewItem
-            {
-                Content = item.Title,
-                Icon = new SymbolIcon(item.Icon),
-                Tag = item,
-            });
-        }
     }
 
     private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
-        if (args.InvokedItemContainer.Tag is MenuItem invokedItem) Navigate(invokedItem.Title, invokedItem.PageType);
+        if (args.InvokedItem is MenuItem invokedItem) Navigate(invokedItem.Title, invokedItem.PageType);
     }
 
     private void Navigate(string title, Type pageType)
     {
-        navigationView.Header = title;
-        frame.Navigate(pageType);
+        frame.Navigate(pageType, title);
     }
 
     private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
@@ -54,7 +44,10 @@ public sealed partial class MainWindow : Window
 
     private void Grid_Loaded(object sender, RoutedEventArgs e)
     {
-        Navigate(MenuItems[0].Title, MenuItems[0].PageType);
+        frame.Navigated += Frame_Navigated;
+        var initialPageMenu = MenuItems[0];
+        navigationView.SelectedItem = initialPageMenu;
+        Navigate(initialPageMenu.Title, initialPageMenu.PageType);
         WeakReferenceMessenger.Default.Register<SelectedEmployeeMessage>(this, (_, message) =>
         {
             Navigate("Expenses list", typeof(ExpensesListPage));
@@ -65,14 +58,23 @@ public sealed partial class MainWindow : Window
     {
         if (e.NavigationMode == NavigationMode.Back)
         {
-            navigationView.Header = MenuItems
-                .FirstOrDefault(x => x.PageType == e.SourcePageType)
-                ?.Title;
+            var menuItem = MenuItems
+                .FirstOrDefault(x => x.PageType == e.SourcePageType);
+            if (menuItem is not null)
+            {
+                navigationView.Header = menuItem.Title;
+                navigationView.SelectedItem = menuItem;
+            }
+        }
+        else if (e.Parameter is string title)
+        {
+            navigationView.Header = title;
         }
     }
 
     private void Grid_Unloaded(object sender, RoutedEventArgs e)
     {
+        frame.Navigated -= Frame_Navigated;
         WeakReferenceMessenger.Default.Unregister<SelectedEmployeeMessage>(this);
     }
 }

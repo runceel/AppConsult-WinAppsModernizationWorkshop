@@ -15,8 +15,23 @@
             IsBackEnabled="{x:Bind frame.CanGoBack, Mode=OneWay}"
             IsSettingsVisible="False"
             ItemInvoked="NavigationView_ItemInvoked"
+            MenuItemsSource="{x:Bind MenuItems}"
             PaneTitle="Contoso Expenses">
-            <Frame x:Name="frame" Navigated="Frame_Navigated" />
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="local:MenuItem">
+                    <NavigationViewItem Content="{x:Bind}">
+                        <NavigationViewItem.Icon>
+                            <SymbolIcon Symbol="{x:Bind Icon}" />
+                        </NavigationViewItem.Icon>
+                        <NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="local:MenuItem">
+                                <TextBlock Text="{x:Bind Title}" />
+                            </DataTemplate>
+                        </NavigationViewItem.ContentTemplate>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+            <Frame x:Name="frame" />
         </NavigationView>
     </Grid>
 </Window>
