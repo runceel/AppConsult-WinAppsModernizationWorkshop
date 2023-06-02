@@ -14,7 +14,7 @@
 
 using System.Windows;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace ContosoExpenses.Views;
 

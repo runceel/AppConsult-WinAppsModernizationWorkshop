@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 
 namespace ContosoExpenses.Data.Services;
 
@@ -6,6 +7,8 @@ public class RegistryService
 {
     public bool IsFirstTimeLaunch()
     {
+        if (!OperatingSystem.IsWindows()) return false;
+
         var regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Contoso\ContosoExpenses", true);
         if (regKey == null)
         {

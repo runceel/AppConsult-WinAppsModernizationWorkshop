@@ -1,6 +1,6 @@
 ﻿using ContosoExpenses.Messages;
 using ContosoExpenses.ViewModels;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;

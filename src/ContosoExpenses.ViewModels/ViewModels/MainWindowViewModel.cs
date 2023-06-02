@@ -1,8 +1,8 @@
 ﻿using ContosoExpenses.Data.Models;
 using ContosoExpenses.Data.Services;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 
 namespace ContosoExpenses.ViewModels;

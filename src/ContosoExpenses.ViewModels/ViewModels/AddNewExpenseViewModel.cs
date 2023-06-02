@@ -1,9 +1,9 @@
 ﻿using ContosoExpenses.Data.Models;
 using ContosoExpenses.Data.Services;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
 
 namespace ContosoExpenses.ViewModels;
@@ -97,9 +97,7 @@ public class AddNewExpenseViewModel : ObservableObject
     {
         get
         {
-            if (_saveExpenseCommand == null)
-            {
-                _saveExpenseCommand = new RelayCommand(() =>
+            _saveExpenseCommand ??= new RelayCommand(() =>
                 {
                     Expense expense = new()
                     {
@@ -117,7 +115,6 @@ public class AddNewExpenseViewModel : ObservableObject
                     WeakReferenceMessenger.Default.Send(new CloseWindowMessage());
                 }, () => IsFormFilled
                 );
-            }
 
             return _saveExpenseCommand;
         }

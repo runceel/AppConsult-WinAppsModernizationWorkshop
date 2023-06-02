@@ -1,5 +1,5 @@
 ﻿using ContosoExpenses.Data.Services;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ContosoExpenses.ViewModels;
 
