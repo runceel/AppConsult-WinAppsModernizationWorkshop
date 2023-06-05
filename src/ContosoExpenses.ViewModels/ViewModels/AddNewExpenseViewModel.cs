@@ -8,75 +8,37 @@ using System;
 
 namespace ContosoExpenses.ViewModels;
 
-public class AddNewExpenseViewModel : ObservableObject
+public partial class AddNewExpenseViewModel : ObservableRecipient
 {
     private readonly IDatabaseService _databaseService;
     private readonly IStorageService _storageService;
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
     private string _address;
-    public string Address
-    {
-        get { return _address; }
-        set
-        {
-            SetProperty(ref _address, value);
-            SaveExpenseCommand.NotifyCanExecuteChanged();
-        }
-    }
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
     private string _city;
-    public string City
-    {
-        get { return _city; }
-        set
-        {
-            SetProperty(ref _city, value);
-            SaveExpenseCommand.NotifyCanExecuteChanged();
-        }
-    }
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
     private double _cost;
-    public double Cost
-    {
-        get { return _cost; }
-        set
-        {
-            SetProperty(ref _cost, value);
-            SaveExpenseCommand.NotifyCanExecuteChanged();
-        }
-    }
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
     private string _description;
-    public string Description
-    {
-        get { return _description; }
-        set
-        {
-            SetProperty(ref _description, value);
-            SaveExpenseCommand.NotifyCanExecuteChanged();
-        }
-    }
-
+    
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveExpenseCommand))]
     private string _expenseType;
-    public string ExpenseType
-    {
-        get { return _expenseType; }
-        set
-        {
-            SetProperty(ref _expenseType, value);
-            SaveExpenseCommand.NotifyCanExecuteChanged();
-        }
-    }
 
+    [ObservableProperty]
     private DateTimeOffset _date;
-    public DateTimeOffset Date
-    {
-        get { return _date; }
-        set { SetProperty(ref _date, value); }
-    }
 
 
-    public AddNewExpenseViewModel(IDatabaseService databaseService, IStorageService storageService)
+    public AddNewExpenseViewModel(IDatabaseService databaseService, IStorageService storageService, IMessenger messenger)
+        : base(messenger)
     {
         _databaseService = databaseService;
         _storageService = storageService;
@@ -84,39 +46,26 @@ public class AddNewExpenseViewModel : ObservableObject
         Date = DateTime.Today;
     }
 
-    private bool IsFormFilled
+    private bool IsFormFilled => 
+        !string.IsNullOrEmpty(Address) && !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(Description) && 
+        !string.IsNullOrEmpty(ExpenseType) && Cost != 0;
+
+    [RelayCommand(CanExecute = nameof(IsFormFilled))]
+    private void SaveExpense()
     {
-        get
+        Expense expense = new()
         {
-            return !string.IsNullOrEmpty(Address) && !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(Description) && !string.IsNullOrEmpty(ExpenseType) && Cost != 0;
-        }
-    }
+            Address = Address,
+            City = City,
+            Cost = Cost,
+            Date = Date.DateTime,
+            Description = Description,
+            EmployeeId = _storageService.SelectedEmployeeId,
+            Type = ExpenseType
+        };
 
-    private IRelayCommand _saveExpenseCommand;
-    public IRelayCommand SaveExpenseCommand
-    {
-        get
-        {
-            _saveExpenseCommand ??= new RelayCommand(() =>
-                {
-                    Expense expense = new()
-                    {
-                        Address = Address,
-                        City = City,
-                        Cost = Cost,
-                        Date = Date.DateTime,
-                        Description = Description,
-                        EmployeeId = _storageService.SelectedEmployeeId,
-                        Type = ExpenseType
-                    };
-
-                    _databaseService.SaveExpense(expense);
-                    WeakReferenceMessenger.Default.Send(new UpdateExpensesListMessage());
-                    WeakReferenceMessenger.Default.Send(new CloseWindowMessage());
-                }, () => IsFormFilled
-                );
-
-            return _saveExpenseCommand;
-        }
+        _databaseService.SaveExpense(expense);
+        Messenger.Send(new UpdateExpensesListMessage());
+        Messenger.Send(new CloseWindowMessage());
     }
 }

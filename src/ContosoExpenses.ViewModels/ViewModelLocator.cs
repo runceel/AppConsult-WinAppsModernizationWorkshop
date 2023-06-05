@@ -1,4 +1,5 @@
-﻿using ContosoExpenses.Data.Services;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using ContosoExpenses.Data.Services;
 using ContosoExpenses.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -12,6 +13,8 @@ public class ViewModelLocator
     public ViewModelLocator()
     {
         var services = new ServiceCollection();
+
+        services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<ExpensesListViewModel>();
@@ -30,4 +33,6 @@ public class ViewModelLocator
     public ExpensesDetailViewModel ExpensesDetailViewModel => _container.GetRequiredService<ExpensesDetailViewModel>();
 
     public AddNewExpenseViewModel AddNewExpenseViewModel => _container.GetRequiredService<AddNewExpenseViewModel>();
+
+    public IMessenger Messenger => _container.GetRequiredService<IMessenger>();
 }

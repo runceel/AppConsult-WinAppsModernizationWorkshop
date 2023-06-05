@@ -9,69 +9,44 @@ using System.Windows.Input;
 
 namespace ContosoExpenses.ViewModels;
 
-public class ExpensesListViewModel : ObservableObject
+public partial class ExpensesListViewModel : ObservableRecipient, IRecipient<UpdateExpensesListMessage>
 {
     private readonly IDatabaseService _databaseService;
     private readonly IStorageService _storageService;
 
+    [ObservableProperty]
     private Employee _selectedEmployee;
 
-    public Employee SelectedEmployee
-    {
-        get { return _selectedEmployee; }
-        set { SetProperty(ref _selectedEmployee, value); }
-    }
-
+    [ObservableProperty]
     private string _fullName;
-    public string FullName
-    {
-        get { return _fullName; }
-        set { SetProperty(ref _fullName, value); }
-    }
 
+    [ObservableProperty]
     private List<Expense> _expenses;
-    public List<Expense> Expenses
-    {
-        get { return _expenses; }
-        set { SetProperty(ref _expenses, value); }
-    }
 
+    [ObservableProperty]
     private Expense _selectedExpense;
 
-    public Expense SelectedExpense
+    partial void OnSelectedExpenseChanging(Expense value)
     {
-        get { return _selectedExpense; }
-        set
-        {
-            if (value != null)
-            {
-                _storageService.SelectedExpense = value.ExpenseId;
-                WeakReferenceMessenger.Default.Send(new SelectedExpenseMessage());
-                SetProperty(ref _selectedExpense, value);
-            }
-        }
+        if (value is null) return;
+
+        _storageService.SelectedExpense = value.ExpenseId;
+        Messenger.Send(new SelectedExpenseMessage());
     }
 
-    private ICommand _addNewExpenseCommand;
-
-
-    public ICommand AddNewExpenseCommand
+    [RelayCommand]
+    private void AddNewExpense()
     {
-        get
-        {
-            if (_addNewExpenseCommand == null)
-            {
-                _addNewExpenseCommand = new RelayCommand(() =>
-                {
-                    WeakReferenceMessenger.Default.Send(new AddNewExpenseMessage());
-                });
-            }
-
-            return _addNewExpenseCommand;
-        }
+        Messenger.Send(new AddNewExpenseMessage());
     }
 
-    public ExpensesListViewModel(IDatabaseService databaseService, IStorageService storageService)
+    public void Receive(UpdateExpensesListMessage _)
+    {
+        Expenses = _databaseService.GetExpenses(_storageService.SelectedEmployeeId);
+    }
+
+    public ExpensesListViewModel(IDatabaseService databaseService, IStorageService storageService, IMessenger messenger)
+        : base(messenger)
     {
         SelectedEmployee = databaseService.GetEmployee(storageService.SelectedEmployeeId);
         Expenses = databaseService.GetExpenses(storageService.SelectedEmployeeId);
@@ -80,10 +55,5 @@ public class ExpensesListViewModel : ObservableObject
 
         _databaseService = databaseService;
         _storageService = storageService;
-
-        WeakReferenceMessenger.Default.Register<UpdateExpensesListMessage>(this, (_, message) =>
-        {
-            Expenses = _databaseService.GetExpenses(_storageService.SelectedEmployeeId);
-        });
     }
 }

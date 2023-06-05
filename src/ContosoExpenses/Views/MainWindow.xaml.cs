@@ -26,7 +26,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        WeakReferenceMessenger.Default.Register<SelectedEmployeeMessage>(this, (_, message) =>
+        App.Current.Messenger.Register<SelectedEmployeeMessage>(this, (_, message) =>
         {
             ExpensesList list = new();
             list.Show();
