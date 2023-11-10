@@ -14,7 +14,8 @@
 
 using System.Windows;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
+using ContosoExpenses.ViewModels;
 
 namespace ContosoExpenses.Views;
 
@@ -23,19 +24,31 @@ namespace ContosoExpenses.Views;
 /// </summary>
 public partial class ExpensesList : Window
 {
+    private ExpensesListViewModel ViewModel => (ExpensesListViewModel)DataContext;
+
     public ExpensesList()
     {
         InitializeComponent();
-        WeakReferenceMessenger.Default.Register<AddNewExpenseMessage>(this, (_, message) =>
+        App.Current.Messenger.Register<AddNewExpenseMessage>(this, (_, message) =>
         {
             AddNewExpense addNewExpense = new();
             addNewExpense.Show();
         });
 
-        WeakReferenceMessenger.Default.Register<SelectedExpenseMessage>(this, (_, message) =>
+        App.Current.Messenger.Register<SelectedExpenseMessage>(this, (_, message) =>
         {
             ExpenseDetail detail = new();
             detail.Show();
         });
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        ViewModel.IsActive = true;
+    }
+
+    private void Window_Closed(object sender, System.EventArgs e)
+    {
+        ViewModel.IsActive = false;
     }
 }

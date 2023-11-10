@@ -14,7 +14,7 @@
 
 using System.Windows;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace ContosoExpenses.Views;
 
@@ -26,7 +26,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        WeakReferenceMessenger.Default.Register<SelectedEmployeeMessage>(this, (_, message) =>
+        App.Current.Messenger.Register<SelectedEmployeeMessage>(this, (_, message) =>
         {
             ExpensesList list = new();
             list.Show();

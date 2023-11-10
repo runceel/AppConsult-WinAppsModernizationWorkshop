@@ -14,7 +14,7 @@
 
 using System.Windows;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace ContosoExpenses.Views;
 
@@ -26,7 +26,7 @@ public partial class AddNewExpense : Window
     public AddNewExpense()
     {
         InitializeComponent();
-        WeakReferenceMessenger.Default.Register<CloseWindowMessage>(this, (_, message) =>
+        App.Current.Messenger.Register<CloseWindowMessage>(this, (_, message) =>
         {
             Close();
         });

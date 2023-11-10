@@ -1,6 +1,8 @@
 ﻿using ContosoExpenses.Data.Models;
+using ContosoExpenses.Messages;
 using ContosoExpenses.ViewModels;
 using Microsoft.UI.Xaml.Controls;
+using CommunityToolkit.Mvvm.Messaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -16,5 +18,10 @@ public sealed partial class MainPage : Page
     public MainPage()
     {
         InitializeComponent();
+        App.Messenger.Register<SelectedEmployeeMessage>(this, (_, message) =>
+        {
+            var window = new SubWindow(new ExpensesListPage());
+            window.Activate();
+        });
     }
 }

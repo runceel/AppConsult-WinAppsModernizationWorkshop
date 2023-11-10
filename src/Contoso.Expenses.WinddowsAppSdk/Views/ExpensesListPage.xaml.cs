@@ -1,6 +1,6 @@
 ﻿using ContosoExpenses.Messages;
 using ContosoExpenses.ViewModels;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -20,51 +20,29 @@ public sealed partial class ExpensesListPage : Page
     public ExpensesListPage()
     {
         InitializeComponent();
+        Loaded += (_, _) => ViewModel.IsActive = true;
+        Unloaded += (_, _) => ViewModel.IsActive = false;
     }
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        WeakReferenceMessenger.Default.Register<AddNewExpenseMessage>(this, async (_, _) =>
+        App.Messenger.Register<AddNewExpenseMessage>(this, (_, _) =>
         {
-            var view = new AddNewExpenseView();
-            var dialog = new ContentDialog
-            {
-                XamlRoot = XamlRoot,
-                PrimaryButtonText = "Save",
-                IsPrimaryButtonEnabled = view.ViewModel.SaveExpenseCommand.CanExecute(null),
-                PrimaryButtonCommand = view.ViewModel.SaveExpenseCommand,
-                CloseButtonText = "Cancel",
-                Content = view,
-            };
-
-            void saveExpenseCommandCanExecuteChanged(object sender, EventArgs e)
-            {
-                if (sender is ICommand command)
-                    dialog.IsPrimaryButtonEnabled = command.CanExecute(null);
-            }
-
-            view.ViewModel.SaveExpenseCommand.CanExecuteChanged += saveExpenseCommandCanExecuteChanged;
-            await dialog.ShowAsync();
-            view.ViewModel.SaveExpenseCommand.CanExecuteChanged -= saveExpenseCommandCanExecuteChanged;
+            var window = new SubWindow(new AddNewExpenseView(), true);
+            window.Activate();
         });
 
-        WeakReferenceMessenger.Default.Register<SelectedExpenseMessage>(this, async (_, message) =>
+        App.Messenger.Register<SelectedExpenseMessage>(this, (_, message) =>
         {
-            var view = new ExpenseDetailView();
-            var dialog = new ContentDialog
-            {
-                XamlRoot = XamlRoot,
-                CloseButtonText = "Close",
-                Content = view,
-            };
-            await dialog.ShowAsync();
+            var page = new ExpenseDetailView();
+            var window = new SubWindow(page);
+            window.Activate();
         });
-
     }
 
     private void Page_Unloaded(object sender, RoutedEventArgs e)
     {
-        WeakReferenceMessenger.Default.Unregister<AddNewExpenseMessage>(this);
-        WeakReferenceMessenger.Default.Unregister<SelectedExpenseMessage>(this);
+        App.Messenger.Unregister<AddNewExpenseMessage>(this);
+        App.Messenger.Unregister<SelectedExpenseMessage>(this);
     }
 }

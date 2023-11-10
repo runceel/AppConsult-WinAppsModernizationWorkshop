@@ -1,4 +1,5 @@
-﻿using ContosoExpenses;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using ContosoExpenses;
 using Microsoft.UI.Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -12,6 +13,7 @@ namespace Contoso.Expenses.WinddowsAppSdk;
 public partial class App : Application
 {
     public static ViewModelLocator ViewModelLocator { get; } = new();
+    public static IMessenger Messenger => ViewModelLocator.Messenger;
 
     /// <summary>
     /// Initializes the singleton application object.  This is the first line of authored code

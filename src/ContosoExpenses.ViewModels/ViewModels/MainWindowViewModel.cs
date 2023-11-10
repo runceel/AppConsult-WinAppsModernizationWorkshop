@@ -1,39 +1,30 @@
 ﻿using ContosoExpenses.Data.Models;
 using ContosoExpenses.Data.Services;
 using ContosoExpenses.Messages;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 
 namespace ContosoExpenses.ViewModels;
 
-public class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ObservableRecipient
 {
-    private List<Employee> _employees;
-    public List<Employee> Employees
-    {
-        get { return _employees; }
-        set { SetProperty(ref _employees, value); }
-    }
-
-    private Employee _selectedEmployee;
     private readonly IStorageService _storageService;
 
-    public Employee SelectedEmployee
+    [ObservableProperty]
+    private List<Employee> _employees;
+
+    [ObservableProperty]
+    private Employee _selectedEmployee;
+
+    partial void OnSelectedEmployeeChanging(Employee value)
     {
-        get { return _selectedEmployee; }
-        set
-        {
-            if (value != null)
-            {
-                _storageService.SelectedEmployeeId = value.EmployeeId;
-                WeakReferenceMessenger.Default.Send(new SelectedEmployeeMessage());
-                SetProperty(ref _selectedEmployee, value);
-            }
-        }
+        _storageService.SelectedEmployeeId = value.EmployeeId;
+        Messenger.Send(new SelectedEmployeeMessage());
     }
 
-    public MainWindowViewModel(IDatabaseService databaseService, IStorageService storageService)
+    public MainWindowViewModel(IDatabaseService databaseService, IStorageService storageService, IMessenger messenger)
+        : base(messenger)
     {
         databaseService.InitializeDatabase();
         Employees = databaseService.GetEmployees();
