@@ -21,6 +21,6 @@
             FontWeight="Bold">
             Contoso Expenses is a 'modern application of yesterday tomorrow' from Contoso Corp.
         </TextBlock>
-        <WebView2 Grid.Row="1" Source="https://contosocorpwebsite.azurewebsites.net/" />
+        <WebView2 Grid.Row="1" Source="https://example.com" />
     </Grid>
 </Page>

@@ -66,6 +66,6 @@ public partial class AddNewExpenseViewModel : ObservableRecipient
 
         _databaseService.SaveExpense(expense);
         Messenger.Send(new UpdateExpensesListMessage());
-        Messenger.Send(new CloseWindowMessage());
+        Messenger.Send(new CloseWindowMessage(this));
     }
 }

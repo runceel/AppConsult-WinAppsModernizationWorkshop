@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace Contoso.Expenses.WinddowsAppSdk.Views;
 
-public sealed partial class ExpenseDetailView : UserControl
+public sealed partial class ExpenseDetailView : Page
 {
     private ExpensesDetailViewModel ViewModel { get; } = App.ViewModelLocator.ExpensesDetailViewModel;
     public ExpenseDetailView()

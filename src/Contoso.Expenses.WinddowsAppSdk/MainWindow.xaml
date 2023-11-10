@@ -6,9 +6,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Contoso.Expenses.WinddowsAppSdk"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:Contoso.Expenses.WinddowsAppSdk.Views"
     mc:Ignorable="d">
-    <Grid Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
-        <NavigationView
+    <Grid
+        Loaded="Grid_Loaded"
+        RowDefinitions="Auto,Auto,*"
+        Unloaded="Grid_Unloaded">
+        <Border x:Name="AppTitleBar" VerticalAlignment="Top">
+            <TextBlock
+                x:Name="AppTitle"
+                Margin="8"
+                VerticalAlignment="Top"
+                Text="Contoso Expenses" />
+        </Border>
+        <MenuBar Grid.Row="1">
+            <MenuBarItem Title="About" Tapped="AboutMenuBarItem_Tapped" />
+        </MenuBar>
+        <views:MainPage Grid.Row="2" />
+        <!--<NavigationView
             x:Name="navigationView"
             BackRequested="NavigationView_BackRequested"
             IsBackButtonVisible="Auto"
@@ -32,6 +47,6 @@
                 </DataTemplate>
             </NavigationView.MenuItemTemplate>
             <Frame x:Name="frame" />
-        </NavigationView>
+        </NavigationView>-->
     </Grid>
 </Window>
