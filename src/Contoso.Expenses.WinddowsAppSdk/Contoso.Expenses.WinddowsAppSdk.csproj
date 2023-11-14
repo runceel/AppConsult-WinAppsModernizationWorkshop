@@ -12,6 +12,11 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\AddNewExpense.png" />
+    <None Remove="Assets\contoso.ico" />
+    <None Remove="Assets\ExpensesBackground.jpg" />
+    <None Remove="Assets\ExpensesListBackground.png" />
+    <None Remove="Assets\HorizontalBackground.png" />
     <None Remove="Views\AboutPage.xaml" />
     <None Remove="Views\AddNewExpenseView.xaml" />
     <None Remove="Views\ExpenseDetailView.xaml" />
@@ -45,6 +50,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContosoExpenses.ViewModels\ContosoExpenses.ViewModels.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\AddNewExpense.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\contoso.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\ExpensesBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\ExpensesListBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\HorizontalBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\SubWindow.xaml">

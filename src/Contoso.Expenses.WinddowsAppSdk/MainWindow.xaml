@@ -22,31 +22,6 @@
         <MenuBar Grid.Row="1">
             <MenuBarItem Title="About" Tapped="AboutMenuBarItem_Tapped" />
         </MenuBar>
-        <views:MainPage Grid.Row="2" />
-        <!--<NavigationView
-            x:Name="navigationView"
-            BackRequested="NavigationView_BackRequested"
-            IsBackButtonVisible="Auto"
-            IsBackEnabled="{x:Bind frame.CanGoBack, Mode=OneWay}"
-            IsSettingsVisible="False"
-            ItemInvoked="NavigationView_ItemInvoked"
-            MenuItemsSource="{x:Bind MenuItems}"
-            PaneTitle="Contoso Expenses">
-            <NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="local:MenuItem">
-                    <NavigationViewItem Content="{x:Bind}">
-                        <NavigationViewItem.Icon>
-                            <SymbolIcon Symbol="{x:Bind Icon}" />
-                        </NavigationViewItem.Icon>
-                        <NavigationViewItem.ContentTemplate>
-                            <DataTemplate x:DataType="local:MenuItem">
-                                <TextBlock Text="{x:Bind Title}" />
-                            </DataTemplate>
-                        </NavigationViewItem.ContentTemplate>
-                    </NavigationViewItem>
-                </DataTemplate>
-            </NavigationView.MenuItemTemplate>
-            <Frame x:Name="frame" />
-        </NavigationView>-->
+        <views:MainPage Grid.Row="2" Margin="10" />
     </Grid>
 </Window>
